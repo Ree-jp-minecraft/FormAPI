@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'net.minecrell.plugin-yml.nukkit' version '0.3.0'
+}
+
+group 'net.ree_jp'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.nukkitx.com/main/'
+    }
+}
+
+dependencies {
+    compile 'cn.nukkit:nukkit:1.0-SNAPSHOT'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+nukkit {
+    name = 'FormAPI'
+    version = '1.0'
+    description = 'Nukkit Simple and Easy Form API'
+    author = 'Ree-jp'
+    main = 'net.ree_jp.formAPI.FormPlugin'
+    api = ['1.0.0']
+    website = 'https://ree-jp.net'
+}
