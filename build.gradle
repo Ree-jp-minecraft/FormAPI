@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'net.minecrell.plugin-yml.nukkit' version '0.3.0'
+    id 'maven-publish'
 }
 
 group 'net.ree_jp'
@@ -26,4 +27,22 @@ nukkit {
     main = 'net.ree_jp.formAPI.FormPlugin'
     api = ['1.0.0']
     website = 'https://ree-jp.net'
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "FormAPI"
+            url = uri("https://maven.pkg.github.com/Ree-jp/FormAPI")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }

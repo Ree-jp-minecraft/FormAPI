@@ -12,8 +12,22 @@
 package net.ree_jp.formAPI.form;
 
 import cn.nukkit.Player;
+import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.response.FormResponse;
+import cn.nukkit.form.response.FormResponseModal;
+import cn.nukkit.form.response.FormResponseSimple;
+import net.ree_jp.formAPI.form.element.FormButton;
 
 public interface Response {
-    void handleResponse(Player player, FormResponse response);
+    default void handleResponse(Player p, FormResponse res) {
+        if (res instanceof FormResponseSimple) {
+            ElementButton button = ((FormResponseSimple) res).getClickedButton();
+            if (button instanceof FormButton) {
+                ((FormButton) button).runTask();
+            }
+        }
+        if (res instanceof FormResponseModal && this instanceof FormModal) {
+            ((FormModal) this).runTask(((FormResponseModal) res).getClickedButtonId() == 0);
+        }
+    }
 }

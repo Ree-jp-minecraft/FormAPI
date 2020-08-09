@@ -7,9 +7,7 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
 
       - uses: actions/checkout@v2
@@ -27,3 +25,8 @@ jobs:
         with:
           name: NukkitPlugin
           path: build/libs/
+
+      - name: publish
+        run: gradle publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
